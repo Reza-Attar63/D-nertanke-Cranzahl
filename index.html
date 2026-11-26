@@ -393,19 +393,15 @@ section{margin:24px 0}.panel{background:white;border:1px solid #eee2ce;border-ra
 
   }
 
-  document.addEventListener("click", event => {
+  const languageSelect = document.querySelector("#language");
 
-    const button = event.target.closest("[data-lang]");
-
-    if (button) translateMenu(button.dataset.lang);
-
+if (languageSelect) {
+  languageSelect.addEventListener("change", () => {
+    translateMenu(languageSelect.value);
   });
 
-  // Wenn die Seite bereits eine Sprachwahl hat, diese ebenfalls beachten.
-
-  document.querySelectorAll("[data-lang]").forEach(button => {
-
-    button.addEventListener("click", () => translateMenu(button.dataset.lang));
+  translateMenu(languageSelect.value);
+}
 
   });
 
