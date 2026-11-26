@@ -58,11 +58,358 @@ section{margin:24px 0}.panel{background:white;border:1px solid #eee2ce;border-ra
 </main>
 <footer>© Dönertanke Cranzahl</footer>
 <script>
-const translations={
-de:{headline:"Dein Hunger. Unser Döner.",tagline:"Frisch, lecker und direkt in Cranzahl.",order:"Jetzt über WhatsApp kontaktieren",menuTitle:"Unsere Speisekarte",menuNote:"Unsere Speisekarte mit Gerichten und Preisen wird hier bald ergänzt.",contactTitle:"Kontakt & Adresse",phoneLabel:"Telefon",whatsappLabel:"WhatsApp-Bestellung",hoursTitle:"Öffnungszeiten",mon:"Montag",closed:"Ruhetag",tueThu:"Dienstag – Donnerstag",friSat:"Freitag – Samstag",sun:"Sonntag",holidays:"Feiertage"},
-en:{headline:"Your hunger. Our döner.",tagline:"Fresh, delicious and right here in Cranzahl.",order:"Contact us on WhatsApp",menuTitle:"Our Menu",menuNote:"Our menu with dishes and prices will be added here soon.",contactTitle:"Contact & Address",phoneLabel:"Phone",whatsappLabel:"WhatsApp orders",hoursTitle:"Opening Hours",mon:"Monday",closed:"Closed",tueThu:"Tuesday – Thursday",friSat:"Friday – Saturday",sun:"Sunday",holidays:"Public holidays"},
-cs:{headline:"Máte hlad? Dáme vám döner.",tagline:"Čerstvé, chutné a přímo v Cranzahlu.",order:"Kontaktujte nás přes WhatsApp",menuTitle:"Náš jídelní lístek",menuNote:"Jídelní lístek s pokrmy a cenami zde brzy doplníme.",contactTitle:"Kontakt a adresa",phoneLabel:"Telefon",whatsappLabel:"Objednávky přes WhatsApp",hoursTitle:"Otevírací doba",mon:"Pondělí",closed:"Zavřeno",tueThu:"Úterý – čtvrtek",friSat:"Pátek – sobota",sun:"Neděle",holidays:"Svátky"}
-};
-document.getElementById("language").addEventListener("change",e=>{const t=translations[e.target.value];document.documentElement.lang=e.target.value;document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;if(t[k])el.textContent=t[k]});document.getElementById("lang-label").textContent=e.target.value==="en"?"Language":e.target.value==="cs"?"Jazyk":"Sprache";});
+
+(() => {
+
+  const translations = {
+
+    en: {
+
+      categories: {
+
+        "Döner": "Kebab",
+
+        "Dönerteller": "Kebab plates",
+
+        "Dürüm": "Dürüm",
+
+        "Dönerbox": "Kebab boxes",
+
+        "Lamacun": "Lahmacun",
+
+        "Pide": "Pide",
+
+        "Nudeln": "Pasta",
+
+        "Salate": "Salads",
+
+        "Snacks": "Snacks",
+
+        "Pizza · Ø 30 cm": "Pizza · Ø 30 cm"
+
+      },
+
+      items: {
+
+        "1":"Small kebab","2":"Kebab","3":"XXL kebab","4":"Vegetarian kebab",
+
+        "5":"Döner Tanke – meat, salad, sauce and halloumi cheese",
+
+        "6":"Falafel kebab with salad and sauce",
+
+        "7":"Small kebab plate with flatbread","8":"Small kebab plate with fries or pasta",
+
+        "9":"Kebab plate with flatbread","10":"Kebab plate with fries or pasta",
+
+        "11":"XXL kebab plate","12":"Kebab plate with falafel and halloumi",
+
+        "13":"Small dürüm","14":"Dürüm","15":"Vegetarian dürüm",
+
+        "16":"Dürüm with falafel, salad and sauce","17":"Dürüm with halloumi",
+
+        "18":"Kebab box with salad","19":"With fries","20":"With pasta",
+
+        "21":"Vegetarian box with salad, sauce, falafel and cheese",
+
+        "22":"Lahmacun with salad and sauce","23":"With kebab meat and salad",
+
+        "24":"With kebab meat, salad, sauce and cheese",
+
+        "25":"With meat, salad, sauce and halloumi cheese",
+
+        "26":"Pide with cheese and tomatoes","27":"With spinach and egg",
+
+        "28":"With minced meat","29":"Vegetarian",
+
+        "30":"Persian pasta with tomato sauce",
+
+        "31":"Pasta baked with ham and broccoli",
+
+        "32":"Pasta with kebab meat and sauce",
+
+        "33":"Pasta with kebab meat, sauce and baked cheese",
+
+        "36":"Mixed salad with iceberg lettuce, red cabbage, onions, tomatoes and cucumbers",
+
+        "37":"Tuna salad with iceberg lettuce, tomatoes, cucumbers, onions and tuna",
+
+        "38":"Kebab salad – mixed salad with kebab meat",
+
+        "39":"Tomato or cucumber salad with iceberg lettuce and bread",
+
+        "40":"Pasta salad – mixed salad with pasta and sauce",
+
+        "41":"DönerTanke salad with tomatoes, cucumbers, onions, olive oil and sauce",
+
+        "42":"French fries","43":"Flatbread with sauce",
+
+        "44":"Baked Camembert with fries",
+
+        "45":"Plate with 8 chicken nuggets and fries",
+
+        "46":"Chicken schnitzel with fries and salad",
+
+        "47":"Margherita pizza","48":"Salami pizza","49":"Ham pizza",
+
+        "50":"Salami and ham pizza","51":"Hawaiian pizza with ham and pineapple",
+
+        "52":"DönerTanke pizza with kebab meat, peppers, hot peppers, onions and garlic",
+
+        "53":"Four Seasons pizza with salami, ham, mushrooms and kebab meat",
+
+        "54":"Diavolo pizza with spicy salami, hot peppers and peppers",
+
+        "55":"Tuna pizza with tuna and onions","56":"Spinach and egg pizza",
+
+        "57":"Barbecue pizza with kebab meat, onions, garlic and BBQ sauce",
+
+        "58":"Salami and mushroom pizza","59":"Ham and mushroom pizza",
+
+        "60":"Salami, ham and mushroom pizza",
+
+        "61":"Neudorf pizza with salami, ham, peppers and mushrooms",
+
+        "62":"Cranzahl pizza with salami, ham, hot peppers, corn and mushrooms",
+
+        "63":"Sehma pizza with chicken, peppers, corn and onions",
+
+        "64":"Special pizza with salami, hot peppers, olives, peppers and onions",
+
+        "65":"Vegetarian pizza with peppers, broccoli, onions, olives and mushrooms",
+
+        "66":"Calzone with salami, ham and mushrooms",
+
+        "67":"DönerTanke calzone with kebab meat, onions and tomatoes",
+
+        "68":"Sucuk pizza with garlic sausage and egg",
+
+        "69":"Party pizza made to order"
+
+      },
+
+      note: "Ø 26 cm: −€1.50 · Ø 40 cm: surcharge from €4.00"
+
+    },
+
+    cs: {
+
+      categories: {
+
+        "Döner": "Döner",
+
+        "Dönerteller": "Döner talíře",
+
+        "Dürüm": "Dürüm",
+
+        "Dönerbox": "Döner boxy",
+
+        "Lamacun": "Lahmacun",
+
+        "Pide": "Pide",
+
+        "Nudeln": "Těstoviny",
+
+        "Salate": "Saláty",
+
+        "Snacks": "Svačiny",
+
+        "Pizza · Ø 30 cm": "Pizza · Ø 30 cm"
+
+      },
+
+      items: {
+
+        "1":"Malý döner","2":"Döner","3":"Döner XXL","4":"Vegetariánský döner",
+
+        "5":"Döner Tanke – maso, salát, omáčka a sýr halloumi",
+
+        "6":"Falafel döner se salátem a omáčkou",
+
+        "7":"Malý döner talíř s chlebem","8":"Malý döner talíř s hranolky nebo těstovinami",
+
+        "9":"Döner talíř s chlebem","10":"Döner talíř s hranolky nebo těstovinami",
+
+        "11":"Döner talíř XXL","12":"Döner talíř s falafelem a halloumi",
+
+        "13":"Malý dürüm","14":"Dürüm","15":"Vegetariánský dürüm",
+
+        "16":"Dürüm s falafelem, salátem a omáčkou","17":"Dürüm s halloumi",
+
+        "18":"Döner box se salátem","19":"S hranolky","20":"S těstovinami",
+
+        "21":"Vegetariánský box se salátem, omáčkou, falafelem a sýrem",
+
+        "22":"Lahmacun se salátem a omáčkou","23":"S döner masem a salátem",
+
+        "24":"S döner masem, salátem, omáčkou a sýrem",
+
+        "25":"S masem, salátem, omáčkou a sýrem halloumi",
+
+        "26":"Pide se sýrem a rajčaty","27":"Se špenátem a vejcem",
+
+        "28":"S mletým masem","29":"Vegetariánské",
+
+        "30":"Perské těstoviny s rajčatovou omáčkou",
+
+        "31":"Zapečené těstoviny se šunkou a brokolicí",
+
+        "32":"Těstoviny s döner masem a omáčkou",
+
+        "33":"Těstoviny s döner masem, omáčkou a zapečeným sýrem",
+
+        "36":"Míchaný salát – ledový salát, červené zelí, cibule, rajčata a okurky",
+
+        "37":"Tuňákový salát – ledový salát, rajčata, okurky, cibule a tuňák",
+
+        "38":"Döner salát – míchaný salát s döner masem",
+
+        "39":"Rajčatový nebo okurkový salát s ledovým salátem a chlebem",
+
+        "40":"Těstovinový salát – míchaný salát s těstovinami a omáčkou",
+
+        "41":"Salát DönerTanke – rajčata, okurky, cibule, olivový olej a omáčka",
+
+        "42":"Hranolky","43":"Chléb s omáčkou",
+
+        "44":"Smažený Camembert s hranolky",
+
+        "45":"Talíř s 8 kuřecími nugetami a hranolky",
+
+        "46":"Kuřecí řízek s hranolky a salátem",
+
+        "47":"Pizza Margherita","48":"Pizza se salámem","49":"Pizza se šunkou",
+
+        "50":"Pizza se salámem a šunkou","51":"Havajská pizza se šunkou a ananasem",
+
+        "52":"Pizza DönerTanke s döner masem dle výběru, paprikou, feferonkami, cibulí a česnekem",
+
+        "53":"Pizza Čtyři roční období se salámem, šunkou, žampiony a döner masem dle výběru",
+
+        "54":"Pizza Diavolo s pikantním salámem, feferonkami a paprikou",
+
+        "55":"Tuňáková pizza s tuňákem a cibulí","56":"Pizza se špenátem a vejcem",
+
+        "57":"Barbecue pizza s döner masem, cibulí, česnekem a BBQ omáčkou",
+
+        "58":"Pizza se salámem a žampiony","59":"Pizza se šunkou a žampiony",
+
+        "60":"Pizza se salámem, šunkou a žampiony",
+
+        "61":"Pizza Neudorf se salámem, šunkou, paprikou a žampiony",
+
+        "62":"Pizza Cranzahl se salámem, šunkou, feferonkami, kukuřicí a žampiony",
+
+        "63":"Pizza Sehma s kuřecím masem, paprikou, kukuřicí a cibulí",
+
+        "64":"Speciální pizza se salámem, feferonkami, olivami, paprikou a cibulí",
+
+        "65":"Vegetariánská pizza s paprikou, brokolicí, cibulí, olivami a žampiony",
+
+        "66":"Calzone se salámem, šunkou a žampiony",
+
+        "67":"Calzone DönerTanke s döner masem, cibulí a rajčaty",
+
+        "68":"Pizza sucuk s česnekovou klobásou a vejcem",
+
+        "69":"Party pizza dle přání"
+
+      },
+
+      note: "Ø 26 cm: −1,50 € · Ø 40 cm: příplatek od 4,00 €"
+
+    }
+
+  };
+
+  const panels = [...document.querySelectorAll(".menu-grid .panel")];
+
+  const originalHeadings = new Map();
+
+  const originalItems = new Map();
+
+  const originalNotes = new Map();
+
+  panels.forEach(panel => {
+
+    const heading = panel.querySelector("h3");
+
+    if (heading) originalHeadings.set(heading, heading.textContent.trim());
+
+    panel.querySelectorAll(".menu-list li").forEach(li => {
+
+      const small = li.querySelector("small");
+
+      if (!small) return;
+
+      const number = small.textContent.trim();
+
+      const textNode = [...small.parentNode.childNodes]
+
+        .find(node => node.nodeType === Node.TEXT_NODE);
+
+      if (textNode) originalItems.set(li, { number, textNode, original: textNode.textContent.trim() });
+
+    });
+
+    panel.querySelectorAll("p.muted").forEach(p => {
+
+      originalNotes.set(p, p.textContent);
+
+    });
+
+  });
+
+  function translateMenu(lang) {
+
+    const dictionary = translations[lang];
+
+    if (!dictionary) return;
+
+    originalHeadings.forEach((original, heading) => {
+
+      heading.textContent = lang === "de"
+
+        ? original
+
+        : (dictionary.categories[original] || original);
+
+    });
+
+    originalItems.forEach(({ number, textNode, original }) => {
+
+      textNode.textContent = " " + (lang === "de"
+
+        ? original
+
+        : (dictionary.items[number] || original));
+
+    });
+
+    originalNotes.forEach((original, p) => {
+
+      p.textContent = lang === "de" ? original : dictionary.note;
+
+    });
+
+  }
+
+  document.addEventListener("click", event => {
+
+    const button = event.target.closest("[data-lang]");
+
+    if (button) translateMenu(button.dataset.lang);
+
+  });
+
+  // Wenn die Seite bereits eine Sprachwahl hat, diese ebenfalls beachten.
+
+  document.querySelectorAll("[data-lang]").forEach(button => {
+
+    button.addEventListener("click", () => translateMenu(button.dataset.lang));
+
+  });
+
+})();
+
 </script>
-</body></html>
+
